@@ -11,6 +11,7 @@ import MongoStore from "connect-mongo";
 import helmet from "helmet";
 
 import users from "./routes/users.js";
+import messages from "./routes/messages.js";
 import AppError from "./utils/AppError.js";
 
 import User from "./models/user.js";
@@ -62,7 +63,7 @@ const sessionConfig = {
   saveUninitialized: true,
   cookie: {
     httpOnly: true,
-    secure: true,
+    secure: false,
     expires: Date.now() + 1000 * 60 * 60 * 24 * 7,
     maxAge: 1000 * 60 * 60 * 24 * 7,
     sameSite: "none",
@@ -101,6 +102,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/users", users);
+app.use("/messages", messages);
 
 app.get("/", (req, res) => {
   res.send("APP RUNNING!");

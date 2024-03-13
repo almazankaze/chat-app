@@ -2,14 +2,17 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 import passportLocalMongoose from "passport-local-mongoose";
 
-const UserSchema = new Schema({
-  email: {
-    type: String,
-    required: true,
-    unique: true,
+const UserSchema = new Schema(
+  {
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    thumbnail: { type: String, default: "" },
   },
-  thumbnail: { type: String, default: "" },
-});
+  { timestamps: true }
+);
 
 UserSchema.plugin(passportLocalMongoose);
 
