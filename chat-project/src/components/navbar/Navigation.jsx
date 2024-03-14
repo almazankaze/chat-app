@@ -6,7 +6,7 @@ import "./navigation.scss";
 const Navigation = () => {
   return (
     <Fragment>
-      <div>Nav</div>
+      <nav className="main-nav">Nav</nav>
       <Outlet />
     </Fragment>
   );

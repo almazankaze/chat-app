@@ -1,0 +1,183 @@
+.form-container {
+  width: 520px;
+  background-color: var(--black);
+  padding: 2.5rem 1rem;
+  border: 1px solid var(--gray-400);
+  border-radius: 10px;
+  box-shadow: rgba(249, 170, 1, 0.5) 0px 3px 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2rem 0;
+}
+
+.form-container form {
+  width: 320px;
+}
+
+form .form-input {
+  position: relative;
+  border-bottom: 2px solid var(--gray-500);
+  margin: 2rem 0;
+}
+
+.form-input:focus-within {
+}
+
+.form-input input {
+  width: 100%;
+  padding: 0 5px;
+  height: 40px;
+  color: var(--secondary-color);
+  border: none;
+  background: none;
+  outline: none;
+}
+
+.form-input label {
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  color: var(--gray-500);
+  transform: translateY(-50%);
+  pointer-events: none;
+  transition: 0.4s ease-in-out;
+}
+
+.form-input span::after {
+  content: "";
+  display: block;
+  margin: 0.125rem auto 0;
+  position: absolute;
+  top: 38px;
+  left: 0;
+  width: 100%;
+  transform: scaleX(0);
+  height: 2px;
+  background: var(--secondary-color);
+  transition: transform 0.3s ease;
+}
+
+.form-input input:focus ~ label,
+.form-input input:valid ~ label {
+  top: -5px;
+  color: var(--secondary-color);
+  font-size: 0.75rem;
+}
+
+.form-input input:focus ~ span::after,
+.form-input input:valid ~ span::after {
+  transform: scaleX(1);
+}
+
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 5px 24px;
+}
+
+.forgot-password {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--secondary-color);
+}
+
+.form-divider {
+  margin-top: 1.25rem;
+  border-color: var(--secondary-color);
+  width: 100%;
+}
+
+.or {
+  background: var(--black);
+  color: var(--secondary-color);
+  width: 1.65rem;
+  margin: -14px auto 10px;
+}
+
+.form-question {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 0.813rem;
+  margin: 1.25rem 0 0.625rem;
+}
+
+.form-link {
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  background: none;
+  color: var(--secondary-color);
+  margin-left: 0.25rem;
+}
+
+.input-error {
+  color: var(--error);
+  font-size: 0.813rem;
+}
+
+.last-error {
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 680px) {
+  .form-container {
+    width: 420px;
+  }
+}
+
+@media (max-width: 560px) {
+  .form-container {
+    width: 320px;
+  }
+
+  .form-container form {
+    width: 280px;
+  }
+
+  .form-options {
+    font-size: 0.75rem;
+  }
+
+  .forgot-password {
+    font-size: 0.75rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .form-container {
+    width: 100%;
+    box-shadow: rgba(249, 170, 1, 0.5) 0px 0px 0px;
+  }
+}
+
+@media (max-width: 360px) {
+  .form-container {
+    border-radius: 0;
+  }
+
+  .form-container form {
+    width: 100%;
+  }
+
+  .form-question {
+    justify-content: center;
+    font-size: 0.75rem;
+    margin: 1.25rem 0 0.625rem;
+  }
+}
+
+@media (max-width: 300px) {
+  .form-options {
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0;
+    margin: 1rem 0;
+  }
+
+  .forgot-password {
+    margin-top: 1rem;
+  }
+}

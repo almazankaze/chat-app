@@ -43,13 +43,13 @@ export const BaseButton = styled.button`
 export const FormButton = styled(BaseButton)`
   margin: 0.625rem 0;
   outline: none;
-  border-radius: 1.25rem;
+
   font-size: 1rem;
   width: 100%;
   text-transform: none;
 
   &:hover {
-    background-color: var(--secondary-color);
+    background-color: var(--secondary-color-dark);
     color: var(--white);
   }
 `;
@@ -71,7 +71,7 @@ export const ClearButton = styled(BaseButton)`
   }
 `;
 
-export const DangerButton = styled(CartButton)`
+export const DangerButton = styled(HeroButton)`
   background-color: var(--error);
   border: 1px solid var(--error);
   &:hover {
