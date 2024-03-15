@@ -10,5 +10,5 @@ export const signIn = (formData) =>
 export const signUp = (formData) =>
   API.post("/users/register", formData, { withCredentials: true });
 export const getUser = () =>
-  API.get("users/getUser", { withCredentials: true });
-export const logout = () => API.get("users/logout", { withCredentials: true });
+  API.get("/users/getUser", { withCredentials: true });
+export const logout = () => API.get("/users/logout", { withCredentials: true });
