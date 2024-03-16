@@ -1,12 +1,12 @@
-import { useState, useEffect, Fragment } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import "./sidenav.scss";
 
 const SideNav = () => {
   return (
-    <Fragment>
-      <div>sidenav</div>
-    </Fragment>
+    <div className="sidenav">
+      <div className="sidenav-content">content</div>
+    </div>
   );
 };
 

@@ -1,0 +1,23 @@
+.sidenav {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.sidenav-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: var(--third-color);
+  border-radius: 1rem;
+  padding: 1rem;
+  height: auto;
+  min-height: 80vh;
+  overflow-y: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.sidenav-content::-webkit-scrollbar {
+  display: none;
+}
