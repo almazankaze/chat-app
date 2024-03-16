@@ -11,7 +11,7 @@ import MongoStore from "connect-mongo";
 import helmet from "helmet";
 
 import users from "./routes/users.js";
-import messages from "./routes/messages.js";
+import chat from "./routes/chat.js";
 import AppError from "./utils/AppError.js";
 
 import User from "./models/user.js";
@@ -103,7 +103,7 @@ app.use((req, res, next) => {
 });
 
 app.use("/users", users);
-app.use("/messages", messages);
+app.use("/chat", chat);
 
 app.get("/", (req, res) => {
   res.send("APP RUNNING!");

@@ -3,15 +3,15 @@ const Schema = mongoose.Schema;
 
 const MessageSchema = new Schema(
   {
-    comment: { type: String, required: true },
-    sender: {
+    text: { type: String, required: true },
+    senderId: {
       type: Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
-    receiver: {
+    chatId: {
       type: Schema.Types.ObjectId,
-      ref: "User",
+      ref: "Group",
       required: true,
     },
   },
