@@ -12,3 +12,29 @@ export const signUp = (formData) =>
 export const getUser = () =>
   API.get("/users/getUser", { withCredentials: true });
 export const logout = () => API.get("/users/logout", { withCredentials: true });
+
+//chat
+export const createChat = (data) =>
+  API.post("/chat/", data, {
+    withCredentials: true,
+  });
+
+export const userChats = (id) =>
+  API.get(`/chat/${id}`, {
+    withCredentials: true,
+  });
+
+export const findChat = (firstId, secondId) =>
+  API.get(`/chat/find/${firstId}/${secondId}`, {
+    withCredentials: true,
+  });
+
+export const getMessages = (id) =>
+  API.get(`/messages/${id}`, {
+    withCredentials: true,
+  });
+
+export const addMessage = (data) =>
+  API.post("/messages/addMessage", data, {
+    withCredentials: true,
+  });
