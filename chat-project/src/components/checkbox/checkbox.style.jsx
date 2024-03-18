@@ -11,7 +11,7 @@ export const CheckBoxContainer = styled.label`
   transition: all 0.25s ease-in-out;
 
   &:hover {
-    color: var(--secondary-color);
+    color: var(--link-text);
   }
 `;
 
@@ -47,12 +47,12 @@ export const BaseCheckbox = styled.div`
   vertical-align: middle;
   position: relative;
   border-radius: 0.25rem;
-  border: 1px solid var(--secondary-color);
+  border: 1px solid var(--third-color);
   background: ${(props) =>
-    props.checked ? "var(--secondary-color)" : "var(--third-color)"};
+    props.checked ? "var(--link-text)" : "var(--third-color)"};
 
   ${HiddenCheckbox}:focus + & {
-    box-shadow: 0 0 0 2px #f1ce80;
+    box-shadow: 0 0 0 2px var(--link-text);
   }
 
   ${Icon} {

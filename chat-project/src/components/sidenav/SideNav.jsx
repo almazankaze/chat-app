@@ -12,14 +12,24 @@ const SideNav = () => {
 
   useEffect(() => {
     dispatch(getChats(user._id));
-  }, [dispatch]);
+  }, [dispatch, user]);
 
   const chats = useSelector(selectChats);
   const isLoading = useSelector(selectIsLoading);
 
   return (
     <div className="sidenav">
-      {isLoading ? "" : <div className="sidenav-content">{chats.length}</div>}
+      {isLoading ? (
+        ""
+      ) : (
+        <div className="sidenav-content">
+          <div className="chat-list">
+            {chats.map((chat) => (
+              <div key={chat._id}>chat</div>
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

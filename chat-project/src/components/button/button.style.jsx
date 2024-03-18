@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const BaseButton = styled.button`
   background-color: var(--secondary-color);
   color: var(--white);
-  min-width: 110px;
+  min-width: 200px;
   text-align: center;
   padding: 0.5em;
   margin: 0;
@@ -17,8 +17,8 @@ export const BaseButton = styled.button`
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
   border-radius: 4px;
   &:hover {
-    background-color: var(--white);
-    color: var(--secondary-color);
+    border: 1px solid var(--secondary-color-hover);
+    background-color: var(--secondary-color-hover);
   }
 
   &.full-btn {
@@ -32,11 +32,10 @@ export const BaseButton = styled.button`
 
   @media (max-width: 600px) {
     font-size: 1rem;
-    min-width: 80px;
+    min-width: 180px;
   }
 
   @media (max-width: 320px) {
-    font-size: 0.875rem;
   }
 `;
 
@@ -49,8 +48,30 @@ export const FormButton = styled(BaseButton)`
   text-transform: none;
 
   &:hover {
-    background-color: var(--secondary-color-dark);
+    background-color: var(--secondary-color-hover);
     color: var(--white);
+  }
+`;
+
+export const ChatButton = styled(BaseButton)`
+  min-width: 72px;
+  max-width: 72px;
+  text-transform: none;
+  outline: none;
+  border: none;
+  background-image: linear-gradient(
+    to right,
+    #dd5e89 0%,
+    #f7bb97 51%,
+    #dd5e89 100%
+  );
+  transition: 0.5s;
+  background-size: 200% auto;
+
+  &:hover {
+    border: none;
+    background-position: right;
+    text-decoration: none;
   }
 `;
 

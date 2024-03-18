@@ -1,21 +1,26 @@
-import { useSelector } from "react-redux";
-import {
-  selectUser,
-  selectUserIsLoading,
-} from "../../store/user/user-selector";
-
-import Spinner from "../../components/spinner/Spinner";
+import Button from "../../components/button/Button";
 import "./home.scss";
 
 const Home = () => {
-  const user = useSelector(selectUser);
-  const isLoading = useSelector(selectUserIsLoading);
+  return (
+    <div className="container home">
+      <div className="home-hero-section">
+        <div className="home-hero-content">
+          <h1 className="home-title">Where conversations come alive!</h1>
+          <h4 className="home-desc">
+            Whether you're a seasoned chatter or new to the chat scene, ChatCord
+            has something for everyone. Start chatting today and let the
+            conversations begin!
+          </h4>
 
-  if (!user) return <div>LogIn</div>;
-
-  if (isLoading) return <Spinner />;
-
-  return <div>{user.username}</div>;
+          <div className="home-btns">
+            <Button type="button">Download Now</Button>
+            <Button type="button">Open in Browser</Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default Home;

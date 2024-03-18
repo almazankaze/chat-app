@@ -14,7 +14,7 @@ export const SpinnerContainer = styled.div`
   height: 64px;
   border: 6px solid rgba(195, 195, 195, 0.6);
   border-radius: 50%;
-  border-top-color: var(--secondary-color);
+  border-top-color: var(--link-text);
   animation: spin 1.2s linear infinite;
   -webkit-animation: spin 1.2s linear infinite;
   @keyframes spin {

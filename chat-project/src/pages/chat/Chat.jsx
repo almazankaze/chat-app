@@ -1,12 +1,20 @@
+import { useState } from "react";
 import { useSelector } from "react-redux";
 import { selectUser } from "../../store/user/user-selector";
 import { Outlet, Navigate } from "react-router-dom";
+import InputEmoji from "react-input-emoji";
 
+import Button, { BUTTON_TYPE_CLASSES } from "../../components/button/Button";
 import SideNav from "../../components/sidenav/SideNav";
 import "./chat.scss";
 
 const Chat = () => {
+  const [newMessage, setNewMessage] = useState("");
   const user = useSelector(selectUser);
+
+  const handleInputChange = () => {
+    setNewMessage(newMessage);
+  };
 
   return user ? (
     <div className="container chat-container">
@@ -90,6 +98,11 @@ const Chat = () => {
               nesciunt explicabo ea totam cupiditate vero.
             </div>
             <div className="message-sender">
+              <div>+</div>
+              <InputEmoji value={newMessage} onChange={handleInputChange} />
+              <Button type="submit" buttonType={BUTTON_TYPE_CLASSES.chat}>
+                Send
+              </Button>
               <input type="file" name="" id="" style={{ display: "none" }} />
             </div>
           </div>

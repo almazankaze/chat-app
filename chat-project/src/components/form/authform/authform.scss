@@ -2,9 +2,9 @@
   width: 520px;
   background-color: var(--black);
   padding: 2.5rem 1rem;
-  border: 1px solid var(--gray-400);
+  border: 1px solid var(--gray-300);
   border-radius: 10px;
-  box-shadow: rgba(249, 170, 1, 0.5) 0px 3px 8px;
+  box-shadow: var(--link-text) 0px 3px 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -17,7 +17,7 @@
 
 form .form-input {
   position: relative;
-  border-bottom: 2px solid var(--gray-500);
+  border-bottom: 2px solid var(--gray-300);
   margin: 2rem 0;
 }
 
@@ -28,7 +28,7 @@ form .form-input {
   width: 100%;
   padding: 0 5px;
   height: 40px;
-  color: var(--secondary-color);
+  color: var(--gradient);
   border: none;
   background: none;
   outline: none;
@@ -38,7 +38,7 @@ form .form-input {
   position: absolute;
   top: 50%;
   left: 5px;
-  color: var(--gray-500);
+  color: var(--gray-300);
   transform: translateY(-50%);
   pointer-events: none;
   transition: 0.4s ease-in-out;
@@ -54,14 +54,14 @@ form .form-input {
   width: 100%;
   transform: scaleX(0);
   height: 2px;
-  background: var(--secondary-color);
+  background: var(--gradient);
   transition: transform 0.3s ease;
 }
 
 .form-input input:focus ~ label,
 .form-input input:valid ~ label {
   top: -5px;
-  color: var(--secondary-color);
+  color: var(--white);
   font-size: 0.75rem;
 }
 
@@ -80,20 +80,7 @@ form .form-input {
 .forgot-password {
   font-size: 0.85rem;
   font-weight: 600;
-  color: var(--secondary-color);
-}
-
-.form-divider {
-  margin-top: 1.25rem;
-  border-color: var(--secondary-color);
-  width: 100%;
-}
-
-.or {
-  background: var(--black);
-  color: var(--secondary-color);
-  width: 1.65rem;
-  margin: -14px auto 10px;
+  color: var(--link-text);
 }
 
 .form-question {
@@ -108,7 +95,7 @@ form .form-input {
   border: none;
   cursor: pointer;
   background: none;
-  color: var(--secondary-color);
+  color: var(--link-text);
   margin-left: 0.25rem;
 }
 
