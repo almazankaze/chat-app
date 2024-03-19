@@ -5,6 +5,7 @@ import { selectUserIsLoading } from "./store/user/user-selector";
 import { getUser } from "./store/user/user-actions";
 
 import Navigation from "./components/navbar/Navigation";
+import ChatNav from "./components/navbar/chatNav/ChatNav";
 import Home from "./pages/home/Home";
 import Chat from "./pages/chat/Chat";
 import Settings from "./pages/chat/settings/Settings";
@@ -14,6 +15,7 @@ import ScrollToTop from "./utils/ScrollToTop";
 import NavigateAuth from "./utils/NavigateAuth";
 import Spinner from "./components/spinner/Spinner";
 import "./App.scss";
+import Notices from "./pages/chat/notices/Notices";
 
 function App() {
   const isLoading = useSelector(selectUserIsLoading);
@@ -35,7 +37,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Navigation />}>
             <Route index element={<Home />} />
-            <Route path="chat" element={<Chat />}>
+            <Route path="chat" element={<ChatNav />}>
+              <Route index element={<Chat />} />
+              <Route path="notification" element={<Notices />} />
               <Route path="settings" element={<Settings />} />
             </Route>
             <Route path="auth" element={<Auth />} />

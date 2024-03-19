@@ -1,0 +1,61 @@
+.chatnav-icons {
+  display: flex;
+  align-items: center;
+  background-color: var(--third-color);
+  height: 1.5rem;
+  padding-top: 2rem;
+  padding-bottom: 1.5rem;
+  border-bottom-left-radius: 1rem;
+  border-bottom-right-radius: 1rem;
+  justify-content: flex-end;
+  width: 92%;
+  max-width: 1280px;
+  margin: auto;
+}
+
+.chatnav-link {
+  margin: 0 1rem;
+}
+
+.chatnav-icon {
+  color: var(--white);
+  transform: scale(1.2);
+  transition: all ease-in 0.2s;
+}
+
+.chatnav-icon-active {
+  color: var(--link-text);
+}
+
+.chatnav-icon:hover {
+  color: var(--link-text);
+}
+
+@media (max-width: 900px) {
+  .chatnav-icons {
+    width: 100%;
+    max-width: 100%;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+}
+
+@media (max-width: 500px) {
+  .chatnav-icon {
+    transform: scale(1);
+  }
+
+  .chatnav-link {
+    margin: 0 0.75rem;
+  }
+}
+
+@media (max-width: 400px) {
+  .chatnav-icon {
+    transform: scale(0.9);
+  }
+
+  .chatnav-link {
+    margin: 0 0.5rem;
+  }
+}

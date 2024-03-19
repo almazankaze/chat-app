@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { selectIsMenuOpen } from "../../store/navbar/navbar-selector";
 import { getChats } from "../../store/chat/chat-actions";
 import { selectChats, selectIsLoading } from "../../store/chat/chat-selector";
 import { selectUser } from "../../store/user/user-selector";
@@ -9,6 +10,7 @@ import "./sidenav.scss";
 const SideNav = () => {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
+  const isMenuOpen = useSelector(selectIsMenuOpen);
 
   useEffect(() => {
     dispatch(getChats(user._id));
@@ -18,7 +20,7 @@ const SideNav = () => {
   const isLoading = useSelector(selectIsLoading);
 
   return (
-    <div className="sidenav">
+    <div className={isMenuOpen ? "sidenav show" : "sidenav"}>
       {isLoading ? (
         ""
       ) : (

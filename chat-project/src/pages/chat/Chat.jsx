@@ -1,29 +1,48 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
-import { selectUser } from "../../store/user/user-selector";
-import { Outlet, Navigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { selectIsMenuOpen } from "../../store/navbar/navbar-selector";
+import { setIsMenuOpen } from "../../store/navbar/navbar-actions";
 import InputEmoji from "react-input-emoji";
 
 import Button, { BUTTON_TYPE_CLASSES } from "../../components/button/Button";
 import SideNav from "../../components/sidenav/SideNav";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import "./chat.scss";
 
 const Chat = () => {
+  const dispatch = useDispatch();
+  const isMenuOpen = useSelector(selectIsMenuOpen);
   const [newMessage, setNewMessage] = useState("");
-  const user = useSelector(selectUser);
 
   const handleInputChange = () => {
     setNewMessage(newMessage);
   };
 
-  return user ? (
+  const toggleIsMenuOpen = () => {
+    dispatch(setIsMenuOpen(!isMenuOpen));
+  };
+
+  return (
     <div className="container chat-container">
       <div className="chat-main">
         <SideNav />
-        <div className="chat-messages-container">
+        <div
+          className={
+            isMenuOpen
+              ? "chat-messages-container show"
+              : "chat-messages-container"
+          }
+        >
           <div className="message-box">
             <div className="message-header">
-              Header{" "}
+              <div className="message-title">
+                <ArrowBackIcon
+                  className="chatnav-toggler"
+                  onClick={toggleIsMenuOpen}
+                />
+                <h4>Header</h4>
+              </div>
+
               <hr
                 style={{
                   width: "95%",
@@ -99,19 +118,21 @@ const Chat = () => {
             </div>
             <div className="message-sender">
               <div>+</div>
-              <InputEmoji value={newMessage} onChange={handleInputChange} />
+              <InputEmoji
+                className="message-input"
+                theme="dark"
+                fontSize="1.125rem"
+                value={newMessage}
+                onChange={handleInputChange}
+              />
               <Button type="submit" buttonType={BUTTON_TYPE_CLASSES.chat}>
                 Send
               </Button>
-              <input type="file" name="" id="" style={{ display: "none" }} />
             </div>
           </div>
         </div>
       </div>
-      <Outlet />
     </div>
-  ) : (
-    <Navigate to="/auth" replace />
   );
 };
 
