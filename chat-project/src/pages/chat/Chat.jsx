@@ -7,6 +7,7 @@ import InputEmoji from "react-input-emoji";
 import Button, { BUTTON_TYPE_CLASSES } from "../../components/button/Button";
 import SideNav from "../../components/sidenav/SideNav";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import DefaultUserImg from "../../assets/default-user.png";
 import "./chat.scss";
 
 const Chat = () => {
@@ -23,7 +24,7 @@ const Chat = () => {
   };
 
   return (
-    <div className="container chat-container">
+    <div className="chat-container">
       <div className="chat-main">
         <SideNav />
         <div
@@ -43,85 +44,31 @@ const Chat = () => {
                 <h4>Header</h4>
               </div>
 
-              <hr
-                style={{
-                  width: "95%",
-                  border: "0.1px solid #fff",
-                  marginTop: "20px",
-                }}
-              />
+              <hr />
             </div>
             <div className="message-body">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad autem
-              veritatis quaerat aspernatur at exercitationem? Delectus saepe ea
-              soluta, praesentium, voluptatum cupiditate debitis repellat
-              laborum iste, consequatur quasi expedita atque. Lorem, ipsum dolor
-              sit amet consectetur adipisicing elit. Aperiam qui soluta cum amet
-              dicta tenetur unde voluptatem illum, modi, id quibusdam sunt et
-              quis nesciunt explicabo ea totam cupiditate vero. Lorem ipsum
-              dolor sit amet, consectetur adipisicing elit. Ad autem veritatis
-              quaerat aspernatur at exercitationem? Delectus saepe ea soluta,
-              praesentium, voluptatum cupiditate debitis repellat laborum iste,
-              consequatur quasi expedita atque. Lorem, ipsum dolor sit amet
-              consectetur adipisicing elit. Aperiam qui soluta cum amet dicta
-              tenetur unde voluptatem illum, modi, id quibusdam sunt et quis
-              nesciunt explicabo ea totam cupiditate vero. Lorem ipsum dolor sit
-              amet, consectetur adipisicing elit. Ad autem veritatis quaerat
-              aspernatur at exercitationem? Delectus saepe ea soluta,
-              praesentium, voluptatum cupiditate debitis repellat laborum iste,
-              consequatur quasi expedita atque. Lorem, ipsum dolor sit amet
-              consectetur adipisicing elit. Aperiam qui soluta cum amet dicta
-              tenetur unde voluptatem illum, modi, id quibusdam sunt et quis
-              nesciunt explicabo ea totam cupiditate vero. Lorem ipsum dolor sit
-              amet, consectetur adipisicing elit. Ad autem veritatis quaerat
-              aspernatur at exercitationem? Delectus saepe ea soluta,
-              praesentium, voluptatum cupiditate debitis repellat laborum iste,
-              consequatur quasi expedita atque. Lorem, ipsum dolor sit amet
-              consectetur adipisicing elit. Aperiam qui soluta cum amet dicta
-              tenetur unde voluptatem illum, modi, id quibusdam sunt et quis
-              nesciunt explicabo ea totam cupiditate vero. Lorem ipsum dolor sit
-              amet, consectetur adipisicing elit. Ad autem veritatis quaerat
-              aspernatur at exercitationem? Delectus saepe ea soluta,
-              praesentium, voluptatum cupiditate debitis repellat laborum iste,
-              consequatur quasi expedita atque. Lorem, ipsum dolor sit amet
-              consectetur adipisicing elit. Aperiam qui soluta cum amet dicta
-              tenetur unde voluptatem illum, modi, id quibusdam sunt et quis
-              nesciunt explicabo ea totam cupiditate vero. Lorem ipsum dolor sit
-              amet, consectetur adipisicing elit. Ad autem veritatis quaerat
-              aspernatur at exercitationem? Delectus saepe ea soluta,
-              praesentium, voluptatum cupiditate debitis repellat laborum iste,
-              consequatur quasi expedita atque. Lorem, ipsum dolor sit amet
-              consectetur adipisicing elit. Aperiam qui soluta cum amet dicta
-              tenetur unde voluptatem illum, modi, id quibusdam sunt et quis
-              nesciunt explicabo ea totam cupiditate vero. Lorem ipsum dolor sit
-              amet, consectetur adipisicing elit. Ad autem veritatis quaerat
-              aspernatur at exercitationem? Delectus saepe ea soluta,
-              praesentium, voluptatum cupiditate debitis repellat laborum iste,
-              consequatur quasi expedita atque. Lorem, ipsum dolor sit amet
-              consectetur adipisicing elit. Aperiam qui soluta cum amet dicta
-              tenetur unde voluptatem illum, modi, id quibusdam sunt et quis
-              nesciunt explicabo ea totam cupiditate vero. Lorem ipsum dolor sit
-              amet, consectetur adipisicing elit. Ad autem veritatis quaerat
-              aspernatur at exercitationem? Delectus saepe ea soluta,
-              praesentium, voluptatum cupiditate debitis repellat laborum iste,
-              consequatur quasi expedita atque. Lorem, ipsum dolor sit amet
-              consectetur adipisicing elit. Aperiam qui soluta cum amet dicta
-              tenetur unde voluptatem illum, modi, id quibusdam sunt et quis
-              nesciunt explicabo ea totam cupiditate vero. Lorem ipsum dolor sit
-              amet, consectetur adipisicing elit. Ad autem veritatis quaerat
-              aspernatur at exercitationem? Delectus saepe ea soluta,
-              praesentium, voluptatum cupiditate debitis repellat laborum iste,
-              consequatur quasi expedita atque. Lorem, ipsum dolor sit amet
-              consectetur adipisicing elit. Aperiam qui soluta cum amet dicta
-              tenetur unde voluptatem illum, modi, id quibusdam sunt et quis
-              nesciunt explicabo ea totam cupiditate vero.
+              <span className="chatbox-empty-message">No messages yet...</span>
+              <div className="message">
+                <div className="message-profile">
+                  <img src={DefaultUserImg} alt={"name"} />
+                </div>
+                <div className="message-text">
+                  <span>Hello</span>
+                  <span>01/02/2023</span>
+                </div>
+              </div>
+
+              <div className="message own">
+                <div className="message-text">
+                  <span>Hello</span>
+                  <span>01/02/2023</span>
+                </div>
+              </div>
             </div>
             <div className="message-sender">
-              <div>+</div>
               <InputEmoji
                 className="message-input"
                 theme="dark"
-                fontSize="1.125rem"
                 value={newMessage}
                 onChange={handleInputChange}
               />

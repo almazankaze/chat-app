@@ -73,6 +73,11 @@ export const ChatButton = styled(BaseButton)`
     background-position: right;
     text-decoration: none;
   }
+
+  @media (max-width: 600px) {
+    font-size: 0.925rem;
+    min-width: 64px;
+  }
 `;
 
 export const HeroButton = styled(BaseButton)`

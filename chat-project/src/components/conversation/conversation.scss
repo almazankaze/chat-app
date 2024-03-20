@@ -1,0 +1,18 @@
+.conversation:hover {
+  background: #80808038;
+  cursor: pointer;
+}
+
+.conversation {
+  border-radius: 0.5rem;
+  padding: 10px;
+  display: flex;
+}
+
+.status-dot {
+  background-color: greenyellow;
+  border-radius: 50%;
+  width: 14px;
+  height: 14px;
+  margin-right: 0.625rem;
+}
