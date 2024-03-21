@@ -30,11 +30,11 @@ export const findChat = (firstId, secondId) =>
   });
 
 export const getMessages = (id) =>
-  API.get(`/messages/${id}`, {
+  API.get(`chat/messages/${id}`, {
     withCredentials: true,
   });
 
 export const addMessage = (data) =>
-  API.post("/messages/addMessage", data, {
+  API.post("chat/messages/addMessage", data, {
     withCredentials: true,
   });

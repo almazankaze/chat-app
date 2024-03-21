@@ -5,6 +5,7 @@ import AppError from "../utils/AppError.js";
 
 export const createChat = async (req, res) => {
   const newChat = new Group({
+    name: req.body.name,
     participants: [req.body.senderId, req.body.receiverId],
   });
 

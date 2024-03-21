@@ -7,7 +7,7 @@ export const selectChats = createSelector(
   (chatSlice) => chatSlice.chats
 );
 
-export const selectIsLoading = createSelector(
+export const selectChatsLoading = createSelector(
   [selectChatReducer],
   (chatSlice) => chatSlice.isLoading
 );
@@ -15,4 +15,9 @@ export const selectIsLoading = createSelector(
 export const selectChatError = createSelector(
   [selectChatReducer],
   (chatSlice) => chatSlice.error
+);
+
+export const selectCurrentChat = createSelector(
+  [selectChatReducer],
+  (chatSlice) => chatSlice.currentChat
 );

@@ -14,6 +14,9 @@ export const fetchChatsSuccess = (chats) =>
 export const fetchChatsFailure = (error) =>
   createAction(CHAT_ACTION_TYPES.FETCH_CHATS_FAILED, error);
 
+export const changeCurrentChats = (newChat) =>
+  createAction(CHAT_ACTION_TYPES.CHANGE_CURRENT_CHAT, newChat);
+
 export const getChats = (id, token) => {
   return async (dispatch) => {
     dispatch(fetchChatsStart());
