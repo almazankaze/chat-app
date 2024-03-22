@@ -9,6 +9,7 @@ const MessageSchema = new Schema(
       ref: "User",
       required: true,
     },
+    senderName: { type: String, required: true },
     chatId: {
       type: Schema.Types.ObjectId,
       ref: "Group",

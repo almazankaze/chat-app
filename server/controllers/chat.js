@@ -40,7 +40,7 @@ export const deleteChat = async (req, res) => {
 };
 
 export const addMessage = async (req, res) => {
-  const { chatId, senderId, text } = req.body;
+  const { chatId, senderId, text, senderName } = req.body;
 
   const group = await Group.findById(chatId);
 
@@ -50,6 +50,7 @@ export const addMessage = async (req, res) => {
     chatId,
     senderId,
     text,
+    senderName,
   });
 
   group.messages.push(message);
@@ -57,7 +58,9 @@ export const addMessage = async (req, res) => {
   await message.save();
   await group.save();
 
-  res.status(200).json(message);
+  const result = await Group.findById(chatId).populate("messages");
+
+  res.status(200).json(result);
 };
 
 export const getMessages = async (req, res) => {

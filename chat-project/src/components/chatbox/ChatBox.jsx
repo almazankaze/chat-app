@@ -10,9 +10,9 @@ import {
 } from "../../store/messages/messages-selector";
 import { selectUser } from "../../store/user/user-selector";
 import { selectCurrentChat } from "../../store/chat/chat-selector";
+import { extractTime } from "../../utils/functions/extractTime";
 import Spinner from "../spinner/Spinner";
 import InputEmoji from "react-input-emoji";
-
 import Button, { BUTTON_TYPE_CLASSES } from "../../components/button/Button";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
@@ -75,23 +75,27 @@ const ChatBox = () => {
                   No messages yet...
                 </span>
               ) : (
-                ""
+                <>
+                  {chat.messages?.map((message) => (
+                    <div
+                      key={message._id}
+                      className={
+                        message.senderId === user._id
+                          ? "message own"
+                          : "message"
+                      }
+                    >
+                      <div className="message-text">
+                        <span>{message.text}</span>
+                      </div>
+                      <span className="message-from">{message.senderName}</span>
+                      <span className="message-time">
+                        {extractTime(message.createdAt)}
+                      </span>
+                    </div>
+                  ))}
+                </>
               )}
-              <div className="message">
-                <div className="message-text">
-                  <span>Hello</span>
-                </div>
-                <span className="message-from">John</span>
-                <span className="message-time">10:12 AM, Today</span>
-              </div>
-
-              <div className="message own">
-                <div className="message-text">
-                  <span>Hello</span>
-                </div>
-                <span className="message-time">10:12 AM, Today</span>
-                <span className="message-from">John</span>
-              </div>
             </>
           )}
         </div>
