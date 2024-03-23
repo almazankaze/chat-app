@@ -3,10 +3,14 @@ import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectIsMenuOpen } from "../../store/navbar/navbar-selector";
 import { setIsMenuOpen } from "../../store/navbar/navbar-actions";
-import { getMessages } from "../../store/messages/messages-actions";
+import {
+  getMessages,
+  sendMessage,
+} from "../../store/messages/messages-actions";
 import {
   selectMessages,
   selectIsLoading,
+  selectMessageLoading,
 } from "../../store/messages/messages-selector";
 import { selectUser } from "../../store/user/user-selector";
 import { selectCurrentChat } from "../../store/chat/chat-selector";
@@ -25,12 +29,29 @@ const ChatBox = () => {
   const currentChat = useSelector(selectCurrentChat);
   const [newMessage, setNewMessage] = useState("");
 
-  const handleInputChange = () => {
+  const handleInputChange = (newMessage) => {
     setNewMessage(newMessage);
   };
 
   const toggleIsMenuOpen = () => {
     dispatch(setIsMenuOpen(!isMenuOpen));
+  };
+
+  const handleSend = async (e) => {
+    e.preventDefault();
+
+    if (!newMessage) return;
+
+    const messageData = {
+      chatId: currentChat,
+      senderId: user._id,
+      text: newMessage,
+      senderName: user.username,
+    };
+
+    dispatch(sendMessage(messageData));
+
+    setNewMessage("");
   };
 
   useEffect(() => {
@@ -39,6 +60,12 @@ const ChatBox = () => {
 
   const chat = useSelector(selectMessages);
   const isLoading = useSelector(selectIsLoading);
+  const scroll = useRef();
+  const messageLoading = useSelector(selectMessageLoading);
+
+  useEffect(() => {
+    scroll.current?.scrollIntoView({ behavior: "smooth" });
+  }, [chat?.messages]);
 
   if (currentChat === null)
     return (
@@ -78,6 +105,7 @@ const ChatBox = () => {
                 <>
                   {chat.messages?.map((message) => (
                     <div
+                      ref={scroll}
                       key={message._id}
                       className={
                         message.senderId === user._id
@@ -99,17 +127,22 @@ const ChatBox = () => {
             </>
           )}
         </div>
-        <div className="message-sender">
+        <form className="message-sender" onSubmit={handleSend}>
           <InputEmoji
             className="message-input"
             theme="dark"
             value={newMessage}
+            maxLength={255}
             onChange={handleInputChange}
           />
-          <Button type="submit" buttonType={BUTTON_TYPE_CLASSES.chat}>
+          <Button
+            type="submit"
+            buttonType={BUTTON_TYPE_CLASSES.chat}
+            isLoading={messageLoading}
+          >
             Send
           </Button>
-        </div>
+        </form>
       </div>
     </div>
   );

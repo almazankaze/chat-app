@@ -108,8 +108,8 @@ export const DangerButton = styled(HeroButton)`
 
 export const LoadingSpinner = styled.div`
   display: inline-block;
-  width: 30px;
-  height: 30px;
+  width: 16px;
+  height: 16px;
   border: 3px solid rgba(195, 195, 195, 0.6);
   border-radius: 50%;
   border-top-color: #636767;
@@ -124,5 +124,10 @@ export const LoadingSpinner = styled.div`
     to {
       -webkit-transform: rotate(360deg);
     }
+  }
+
+  @media (max-width: 600px) {
+    width: 12px;
+    height: 12px;
   }
 `;

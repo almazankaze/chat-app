@@ -3,6 +3,10 @@
   cursor: pointer;
 }
 
+.conversation.active {
+  background: #80808038;
+}
+
 .conversation {
   border-radius: 0.5rem;
   padding: 10px;

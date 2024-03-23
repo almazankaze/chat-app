@@ -12,6 +12,11 @@ export const selectIsLoading = createSelector(
   (messageSlice) => messageSlice.isLoading
 );
 
+export const selectMessageLoading = createSelector(
+  [selectMessageReducer],
+  (messageSlice) => messageSlice.messageSendLoading
+);
+
 export const selectChatError = createSelector(
   [selectMessageReducer],
   (messageSlice) => messageSlice.error
