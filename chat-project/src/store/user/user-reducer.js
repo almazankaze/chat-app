@@ -2,6 +2,7 @@ import { USER_ACTION_TYPES } from "./user-types";
 
 const USER_INITIAL_DATA = {
   user: null,
+  socket: null,
   isLoading: false,
   error: null,
 };
@@ -14,13 +15,15 @@ export const userReducer = (state = USER_INITIAL_DATA, action = {}) => {
       return {
         ...state,
         user: null,
+        socket: null,
         isLoading: true,
         error: null,
       };
     case USER_ACTION_TYPES.USER_SUCCESS:
       return {
         ...state,
-        user: payload,
+        user: payload.user,
+        socket: payload.socket,
         isLoading: false,
         error: null,
       };
@@ -36,6 +39,7 @@ export const userReducer = (state = USER_INITIAL_DATA, action = {}) => {
       return {
         ...state,
         user: null,
+        socket: null,
         isLoading: false,
         error: null,
       };
@@ -43,6 +47,7 @@ export const userReducer = (state = USER_INITIAL_DATA, action = {}) => {
     case USER_ACTION_TYPES.USER_FAIL:
       return {
         ...state,
+        socket: null,
         isLoading: false,
         error: payload,
       };

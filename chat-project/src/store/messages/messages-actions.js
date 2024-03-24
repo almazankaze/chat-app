@@ -47,3 +47,6 @@ export const sendMessage = (messageInfo, token) => {
     }
   };
 };
+
+export const addMessage = (newMessage) =>
+  createAction(MESSAGES_ACTION_TYPES.ADD_TO_MESSAGES, newMessage);

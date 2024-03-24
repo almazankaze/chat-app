@@ -41,6 +41,13 @@ export const messagesReducer = (
         chat: payload,
         error: null,
       };
+
+    case MESSAGES_ACTION_TYPES.ADD_TO_MESSAGES:
+      return {
+        ...state,
+        chat: { ...state.chat, messages: [...state.chat.messages, payload] },
+      };
+
     default:
       return state;
   }

@@ -3,7 +3,7 @@ import { useEffect, Fragment } from "react";
 import { Outlet, Link, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { selectUser } from "../../store/user/user-selector";
+import { selectUser, selectSocket } from "../../store/user/user-selector";
 import { selectNavPath } from "../../store/navbar/navbar-selector";
 import { setNavPath } from "../../store/navbar/navbar-actions";
 
@@ -19,6 +19,7 @@ const Navigation = () => {
   const location = useLocation();
   const prevPath = useSelector(selectNavPath);
   const user = useSelector(selectUser);
+  const socket = useSelector(selectSocket);
 
   useEffect(() => {
     const currentPath = location.pathname + location.search;
@@ -29,7 +30,7 @@ const Navigation = () => {
   }, [location]);
 
   const signMeOut = async () => {
-    dispatch(logout()).then(() => {
+    dispatch(logout(socket)).then(() => {
       navigate("/auth");
     });
   };

@@ -3,6 +3,7 @@ import { createAction } from "../../utils/reducer/reducer";
 import { USER_ACTION_TYPES } from "./user-types";
 
 import * as api from "../../api/index";
+import io from "socket.io-client";
 
 export const fetchUserStart = () => {
   return { type: USER_ACTION_TYPES.USER_START };
@@ -11,8 +12,8 @@ export const userLogoutStart = () => {
   return { type: USER_ACTION_TYPES.USER_LOGOUT_START };
 };
 
-export const fetchUserSuccess = (user) =>
-  createAction(USER_ACTION_TYPES.USER_SUCCESS, user);
+export const fetchUserSuccess = (user, socket) =>
+  createAction(USER_ACTION_TYPES.USER_SUCCESS, { user, socket });
 
 export const userLogoutSuccess = () =>
   createAction(USER_ACTION_TYPES.USER_LOGOUT);
@@ -25,7 +26,11 @@ export const signIn = (userData) => {
     dispatch(fetchUserStart());
     try {
       const { data } = await api.signIn(userData);
-      dispatch(fetchUserSuccess(data));
+      const socket = io.connect("http://localhost:5000", {
+        query: { userId: data._id },
+        forceNew: true,
+      });
+      dispatch(fetchUserSuccess(data, socket));
       return 200;
     } catch (e) {
       dispatch(userFailure(e));
@@ -40,7 +45,11 @@ export const signUp = (userData) => {
     dispatch(fetchUserStart());
     try {
       const { data } = await api.signUp(userData);
-      dispatch(fetchUserSuccess(data));
+      const socket = io.connect("http://localhost:5000", {
+        query: { userId: data._id },
+        forceNew: true,
+      });
+      dispatch(fetchUserSuccess(data, socket));
       return 200;
     } catch (e) {
       dispatch(userFailure(e));
@@ -55,7 +64,11 @@ export const getUser = () => {
     dispatch(fetchUserStart());
     try {
       const { data } = await api.getUser();
-      dispatch(fetchUserSuccess(data));
+      const socket = io.connect("http://localhost:5000", {
+        query: { userId: data._id },
+        forceNew: true,
+      });
+      dispatch(fetchUserSuccess(data, socket));
       return 200;
     } catch (e) {
       dispatch(userFailure(e));
@@ -64,11 +77,12 @@ export const getUser = () => {
   };
 };
 
-export const logout = () => {
+export const logout = (socket) => {
   return async (dispatch) => {
     dispatch(userLogoutStart);
     try {
       const { data } = await api.logout();
+      socket.close();
       dispatch(userLogoutSuccess(data));
     } catch (e) {
       dispatch(userFailure(e));

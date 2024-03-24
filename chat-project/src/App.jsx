@@ -12,7 +12,6 @@ import Settings from "./pages/chat/settings/Settings";
 import Auth from "./pages/auth/Auth";
 import NotFound from "./pages/errors/NotFound";
 import ScrollToTop from "./utils/ScrollToTop";
-import NavigateAuth from "./utils/NavigateAuth";
 import Spinner from "./components/spinner/Spinner";
 import "./App.scss";
 import Notices from "./pages/chat/notices/Notices";
@@ -25,7 +24,6 @@ function App() {
     const checkIsLoggedIn = async () => {
       dispatch(getUser());
     };
-
     checkIsLoggedIn();
   }, []);
 

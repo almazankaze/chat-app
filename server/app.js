@@ -16,11 +16,11 @@ import AppError from "./utils/AppError.js";
 
 import User from "./models/user.js";
 
+import { app, server } from "./socket/socket.js";
+
 if (process.env.NODE_ENV !== "production") {
   dotenv.config();
 }
-
-const app = express();
 
 const whitelist = process.env.WHITELISTED_DOMAINS
   ? process.env.WHITELISTED_DOMAINS.split(",")
@@ -124,7 +124,7 @@ const PORT = process.env.PORT || 5000;
 mongoose
   .connect(process.env.CONNECTION)
   .then(() =>
-    app.listen(PORT, () =>
+    server.listen(PORT, () =>
       console.log(`Server running on Port: http://localhost:${PORT}`)
     )
   )

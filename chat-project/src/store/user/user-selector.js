@@ -7,6 +7,11 @@ export const selectUser = createSelector(
   (userSlice) => userSlice.user
 );
 
+export const selectSocket = createSelector(
+  [selectUserReducer],
+  (userSlice) => userSlice.socket
+);
+
 export const selectUserIsLoading = createSelector(
   [selectUserReducer],
   (userSlice) => userSlice.isLoading
