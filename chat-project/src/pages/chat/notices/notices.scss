@@ -1,0 +1,27 @@
+.invite {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: var(--third-color);
+  margin-top: 2rem;
+}
+
+.notice-btns {
+  display: flex;
+}
+
+.notice-btns button {
+  margin: 0 1rem;
+}
+
+@media (max-width: 540px) {
+  .invite {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .notice-btns {
+    margin-top: 1rem;
+  }
+}

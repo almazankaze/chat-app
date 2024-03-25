@@ -82,6 +82,11 @@ export const ChatButton = styled(BaseButton)`
 
 export const HeroButton = styled(BaseButton)`
   margin: 0.75rem 0;
+
+  @media (max-width: 900px) {
+    font-size: 0.925rem;
+    min-width: 64px;
+  }
 `;
 
 export const ClearButton = styled(BaseButton)`
@@ -101,8 +106,8 @@ export const DangerButton = styled(HeroButton)`
   background-color: var(--error);
   border: 1px solid var(--error);
   &:hover {
-    background-color: transparent;
-    color: var(--white);
+    border: 1px solid var(--error-hover);
+    background-color: var(--error-hover);
   }
 `;
 
