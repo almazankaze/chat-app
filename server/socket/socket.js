@@ -15,20 +15,23 @@ const io = new Server(server, {
 
 const userSocketMap = {};
 
-export const getReceiverSocketId = (receiverId) => {
-  return userSocketMap[receiverId];
+export const getSocketId = (userId) => {
+  return userSocketMap[userId];
 };
 
 io.on("connection", (socket) => {
+  const roomId = socket.handshake.query.roomId;
   const userId = socket.handshake.query.userId;
 
   if (userId != "undefined") userSocketMap[userId] = socket.id;
 
-  io.emit("getOnlineUsers", Object.keys(userSocketMap));
+  socket.on("join room", (room) => {
+    socket.join(room);
+  });
 
   socket.on("disconnect", () => {
     delete userSocketMap[userId];
-    io.emit("getOnlineUsers", Object.keys(userSocketMap));
+    socket.leave(roomId);
   });
 });
 

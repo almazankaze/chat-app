@@ -51,6 +51,14 @@ export const userReducer = (state = USER_INITIAL_DATA, action = {}) => {
         isLoading: false,
         error: payload,
       };
+
+    case USER_ACTION_TYPES.ESTABLISH_SOCKET_CONNECTION:
+      return {
+        ...state,
+        socket: payload,
+        isLoading: false,
+        error: null,
+      };
     default:
       return state;
   }

@@ -3,6 +3,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getChats } from "../../store/chat/chat-actions";
 import { selectChatsLoading } from "../../store/chat/chat-selector";
+import { establishConnection } from "../../store/user/user-actions";
 import { selectUser, selectSocket } from "../../store/user/user-selector";
 import { addMessage } from "../../store/messages/messages-actions";
 import { selectMessages } from "../../store/messages/messages-selector";
@@ -31,6 +32,10 @@ const Chat = () => {
 
     return () => socket?.off("newMessage");
   }, [dispatch, socket, chat.messages]);
+
+  useEffect(() => {
+    socket?.emit("join room", chat._id);
+  }, [chat]);
 
   return (
     <div className="chat-container">

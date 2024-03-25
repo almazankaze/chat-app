@@ -21,16 +21,21 @@ export const userLogoutSuccess = () =>
 export const userFailure = (error) =>
   createAction(USER_ACTION_TYPES.USER_FAIL, error);
 
+export const connectToSocket = (socket) =>
+  createAction(USER_ACTION_TYPES.ESTABLISH_SOCKET_CONNECTION, socket);
+
 export const signIn = (userData) => {
   return async (dispatch) => {
     dispatch(fetchUserStart());
     try {
       const { data } = await api.signIn(userData);
-      const socket = io.connect("http://localhost:5000", {
+
+      const newSocket = io.connect("http://localhost:5000", {
         query: { userId: data._id },
         forceNew: true,
       });
-      dispatch(fetchUserSuccess(data, socket));
+
+      dispatch(fetchUserSuccess(data, newSocket));
       return 200;
     } catch (e) {
       dispatch(userFailure(e));
@@ -45,11 +50,13 @@ export const signUp = (userData) => {
     dispatch(fetchUserStart());
     try {
       const { data } = await api.signUp(userData);
-      const socket = io.connect("http://localhost:5000", {
+
+      const newSocket = io.connect("http://localhost:5000", {
         query: { userId: data._id },
         forceNew: true,
       });
-      dispatch(fetchUserSuccess(data, socket));
+
+      dispatch(fetchUserSuccess(data, newSocket));
       return 200;
     } catch (e) {
       dispatch(userFailure(e));
@@ -64,11 +71,12 @@ export const getUser = () => {
     dispatch(fetchUserStart());
     try {
       const { data } = await api.getUser();
-      const socket = io.connect("http://localhost:5000", {
+      const newSocket = io.connect("http://localhost:5000", {
         query: { userId: data._id },
         forceNew: true,
       });
-      dispatch(fetchUserSuccess(data, socket));
+
+      dispatch(fetchUserSuccess(data, newSocket));
       return 200;
     } catch (e) {
       dispatch(userFailure(e));
@@ -77,15 +85,26 @@ export const getUser = () => {
   };
 };
 
-export const logout = (socket) => {
+export const logout = () => {
   return async (dispatch) => {
     dispatch(userLogoutStart);
     try {
       const { data } = await api.logout();
-      socket.close();
       dispatch(userLogoutSuccess(data));
     } catch (e) {
       dispatch(userFailure(e));
+    }
+  };
+};
+
+export const establishConnection = (chatId, socket) => {
+  return async (dispatch) => {
+    try {
+      socket.io.opts.query = { ...socket.io.opts.query, roomId: chatId };
+      const newSocket = socket.connect();
+      dispatch(connectToSocket(newSocket));
+    } catch (e) {
+      dispatch(connectToSocket(null));
     }
   };
 };

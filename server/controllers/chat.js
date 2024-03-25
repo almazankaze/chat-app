@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import Group from "../models/chat.js";
 import Message from "../models/message.js";
 import AppError from "../utils/AppError.js";
-import { io, getReceiverSocketId } from "../socket/socket.js";
+import { io, getSocketId } from "../socket/socket.js";
 
 export const createChat = async (req, res) => {
   const newChat = new Group({
@@ -61,11 +61,9 @@ export const addMessage = async (req, res) => {
 
   const result = await Group.findById(chatId).populate("messages");
 
-  const receiverSocketId = getReceiverSocketId(chatId);
+  const socketId = getSocketId(senderId);
 
-  if (receiverSocketId) {
-    io.to(receiverSocketId).emit("newMessage", message);
-  }
+  io.in(chatId).emit("newMessage", message);
 
   res.status(200).json(result);
 };
