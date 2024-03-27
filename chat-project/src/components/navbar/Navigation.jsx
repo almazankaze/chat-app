@@ -31,6 +31,7 @@ const Navigation = () => {
 
   const signMeOut = async () => {
     dispatch(logout()).then(() => {
+      socket.close();
       navigate("/auth");
     });
   };

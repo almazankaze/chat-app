@@ -1,7 +1,15 @@
+import { useNavigate } from "react-router-dom";
 import Button from "../../components/button/Button";
+import { APP_PATH } from "../../utils/paths/paths";
 import "./home.scss";
 
 const Home = () => {
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate(APP_PATH.chatRoot);
+  };
+
   return (
     <div className="container home">
       <div className="home-hero-section">
@@ -15,7 +23,9 @@ const Home = () => {
 
           <div className="home-btns">
             <Button type="button">Download Now</Button>
-            <Button type="button">Open in Browser</Button>
+            <Button type="button" onClick={handleClick}>
+              Open in Browser
+            </Button>
           </div>
         </div>
       </div>

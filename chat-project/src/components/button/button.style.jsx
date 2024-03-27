@@ -9,7 +9,7 @@ export const BaseButton = styled.button`
   margin: 0;
   display: inline-block;
   transition: all 0.3s linear;
-  font-size: 1.125rem;
+  font-size: 1rem;
   font-weight: 700;
   text-transform: uppercase;
   border: 1px solid var(--secondary-color);

@@ -9,12 +9,12 @@ import ChatNav from "./components/navbar/chatNav/ChatNav";
 import Home from "./pages/home/Home";
 import Chat from "./pages/chat/Chat";
 import Settings from "./pages/chat/settings/Settings";
+import Notices from "./pages/chat/notices/Notices";
 import Auth from "./pages/auth/Auth";
 import NotFound from "./pages/errors/NotFound";
 import ScrollToTop from "./utils/ScrollToTop";
 import Spinner from "./components/spinner/Spinner";
 import "./App.scss";
-import Notices from "./pages/chat/notices/Notices";
 
 function App() {
   const isLoading = useSelector(selectUserIsLoading);
