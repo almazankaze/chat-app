@@ -15,6 +15,7 @@ import NotFound from "./pages/errors/NotFound";
 import ScrollToTop from "./utils/ScrollToTop";
 import Spinner from "./components/spinner/Spinner";
 import "./App.scss";
+import Modal from "./components/modal/Modal";
 
 function App() {
   const isLoading = useSelector(selectUserIsLoading);
@@ -32,6 +33,7 @@ function App() {
   ) : (
     <>
       <ScrollToTop>
+        <Modal />
         <Routes>
           <Route path="/" element={<Navigation />}>
             <Route index element={<Home />} />

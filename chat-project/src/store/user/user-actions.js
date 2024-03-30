@@ -30,10 +30,14 @@ export const signIn = (userData) => {
     try {
       const { data } = await api.signIn(userData);
 
-      const newSocket = io.connect("http://localhost:5000", {
-        query: { userId: data._id },
-        forceNew: true,
-      });
+      let newSocket = null;
+
+      if (data) {
+        newSocket = io.connect("http://localhost:5000", {
+          query: { userId: data._id },
+          forceNew: true,
+        });
+      }
 
       dispatch(fetchUserSuccess(data, newSocket));
       return 200;
@@ -51,10 +55,14 @@ export const signUp = (userData) => {
     try {
       const { data } = await api.signUp(userData);
 
-      const newSocket = io.connect("http://localhost:5000", {
-        query: { userId: data._id },
-        forceNew: true,
-      });
+      let newSocket = null;
+
+      if (data) {
+        newSocket = io.connect("http://localhost:5000", {
+          query: { userId: data._id },
+          forceNew: true,
+        });
+      }
 
       dispatch(fetchUserSuccess(data, newSocket));
       return 200;
@@ -71,10 +79,14 @@ export const getUser = () => {
     dispatch(fetchUserStart());
     try {
       const { data } = await api.getUser();
-      const newSocket = io.connect("http://localhost:5000", {
-        query: { userId: data._id },
-        forceNew: true,
-      });
+      let newSocket = null;
+
+      if (data) {
+        newSocket = io.connect("http://localhost:5000", {
+          query: { userId: data._id },
+          forceNew: true,
+        });
+      }
 
       dispatch(fetchUserSuccess(data, newSocket));
       return 200;

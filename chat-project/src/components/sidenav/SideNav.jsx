@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { selectIsMenuOpen } from "../../store/navbar/navbar-selector";
+import { setIsModalOpen } from "../../store/modal/modal-actions";
 import { changeCurrentChat } from "../../store/chat/chat-actions";
 import { selectChats } from "../../store/chat/chat-selector";
 import { selectUser } from "../../store/user/user-selector";
@@ -17,12 +18,18 @@ const SideNav = () => {
     dispatch(changeCurrentChat(id));
   };
 
+  const openModal = () => {
+    dispatch(setIsModalOpen(true));
+  };
+
   return (
     <div className={isMenuOpen ? "sidenav show" : "sidenav"}>
       <div className="sidenav-content">
         <div className="side-chat-header">
           <h3>{user.username}</h3>
-          <div className="add-chat-btn">+</div>
+          <div className="add-chat-btn" onClick={openModal}>
+            +
+          </div>
         </div>
 
         <div className="chat-list-container">

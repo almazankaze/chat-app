@@ -83,6 +83,8 @@ export const ChatButton = styled(BaseButton)`
 export const HeroButton = styled(BaseButton)`
   margin: 0.75rem 0;
 
+  border: 1px solid var(--secondary-color);
+
   @media (max-width: 900px) {
     font-size: 0.925rem;
     min-width: 64px;
