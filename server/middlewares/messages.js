@@ -5,3 +5,7 @@ import AppError from "../utils/AppError.js";
 export const validateMessage = (req, res, next) => {
   next();
 };
+
+export const isMember = (req, res, next) => {
+  next();
+};

@@ -22,3 +22,12 @@
 .modal-input:focus {
   border: 2px solid var(--link-text);
 }
+
+.modal-error {
+  display: none;
+  color: var(--error);
+}
+
+.show-modal-error {
+  display: block;
+}

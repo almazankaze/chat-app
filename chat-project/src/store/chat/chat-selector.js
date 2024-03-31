@@ -21,3 +21,8 @@ export const selectCurrentChat = createSelector(
   [selectChatReducer],
   (chatSlice) => chatSlice.currentChat
 );
+
+export const selectChatModalLoading = createSelector(
+  [selectChatReducer],
+  (chatSlice) => chatSlice.chatModalLoading
+);

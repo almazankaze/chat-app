@@ -3,6 +3,9 @@ import { setIsModalOpen } from "../../store/modal/modal-actions";
 import { useDispatch, useSelector } from "react-redux";
 
 import { selectIsModalOpen } from "../../store/modal/modal-selector.js";
+import { selectChatModalLoading } from "../../store/chat/chat-selector.js";
+import { selectUser } from "../../store/user/user-selector";
+import { createNewChat } from "../../store/chat/chat-actions.js";
 
 import Button, { BUTTON_TYPE_CLASSES } from "../button/Button";
 
@@ -27,17 +30,20 @@ const getModal = (modalType = MODAL_TYPE_CLASSES.base) =>
 
 const defaultFormFields = {
   roomName: "",
-  friendId: "",
+  friendName: "",
 };
 
-const Modal = ({ children, modalType, isLoading = false, ...otherProps }) => {
+const Modal = ({ children, modalType, ...otherProps }) => {
   const CustomModal = getModal(modalType);
   const dispatch = useDispatch();
 
   const isOpen = useSelector(selectIsModalOpen);
+  const user = useSelector(selectUser);
+  const modalLoading = useSelector(selectChatModalLoading);
 
   const [formFields, setFormFields] = useState(defaultFormFields);
-  const { roomName, friendId } = formFields;
+  const [showError, setShowError] = useState(false);
+  const { roomName, friendName } = formFields;
 
   const resetFormFields = () => {
     setFormFields(defaultFormFields);
@@ -50,13 +56,33 @@ const Modal = ({ children, modalType, isLoading = false, ...otherProps }) => {
   };
 
   const closeModal = () => {
+    resetFormFields();
+    setShowError(false);
     dispatch(setIsModalOpen(false));
+  };
+
+  const createChat = () => {
+    if (roomName) {
+      const chat = {
+        senderId: user._id,
+        name: roomName,
+        receiverId: null,
+      };
+
+      dispatch(createNewChat(chat)).then((resp) => {
+        if (resp === 200) {
+          closeModal();
+        } else {
+          setShowError(true);
+        }
+      });
+    }
   };
 
   return (
     <ModalContainer className={isOpen ? "show-modal" : ""}>
-      <CustomModal disabled={isLoading} {...otherProps}>
-        {isLoading ? (
+      <CustomModal disabled={modalLoading} {...otherProps}>
+        {modalLoading ? (
           <ModalSpinner />
         ) : (
           <ModalContent>
@@ -73,23 +99,20 @@ const Modal = ({ children, modalType, isLoading = false, ...otherProps }) => {
                   className="modal-input"
                 />
               </div>
-              <div className="modal-input-container">
-                <label>Friend Id</label>
-                <input
-                  type="text"
-                  name="friendId"
-                  onChange={handleChange}
-                  value={friendId}
-                  required
-                  className="modal-input"
-                />
-              </div>
             </div>
+            <span
+              className={
+                showError ? "modal-error show-modal-error" : "modal-error"
+              }
+            >
+              Something went wrong
+            </span>
             <ModalButtons>
               <Button
                 type="button"
                 buttonType={BUTTON_TYPE_CLASSES.heroBtn}
                 className="m-medium"
+                onClick={createChat}
               >
                 Create
               </Button>

@@ -28,3 +28,29 @@ export const getChats = (id, token) => {
     }
   };
 };
+
+// create a new chat
+export const createChatStart = () => {
+  return { type: CHAT_ACTION_TYPES.CREATE_CHAT_START };
+};
+
+export const createChatSuccess = (chat) =>
+  createAction(CHAT_ACTION_TYPES.CREATE_CHAT_SUCCESS, chat);
+
+export const createChatFailure = (error) =>
+  createAction(CHAT_ACTION_TYPES.CREATE_CHAT_FAILED, error);
+
+export const createNewChat = (chatInfo, token) => {
+  return async (dispatch) => {
+    dispatch(createChatStart());
+    try {
+      const { data } = await api.createChat(chatInfo, token);
+      dispatch(createChatSuccess(data));
+      return 200;
+    } catch (e) {
+      dispatch(createChatFailure(e));
+      if (e?.response?.status) return e.response.status;
+      else return 500;
+    }
+  };
+};

@@ -5,10 +5,20 @@ import AppError from "../utils/AppError.js";
 import { io, getSocketId } from "../socket/socket.js";
 
 export const createChat = async (req, res) => {
-  const newChat = new Group({
-    name: req.body.name,
-    participants: [req.body.senderId, req.body.receiverId],
-  });
+  const { name, senderId, receiverId } = req.body;
+  let newChat;
+
+  if (receiverId === null) {
+    newChat = new Group({
+      name: name,
+      participants: [senderId],
+    });
+  } else {
+    newChat = new Group({
+      name: name,
+      participants: [senderId, receiverId],
+    });
+  }
 
   const result = await newChat.save();
   res.status(200).json(result);
