@@ -12,8 +12,8 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import "./chatnav.scss";
 
 const ChatNav = () => {
-  const [activeLink, setActiveLink] = useState(0);
   const user = useSelector(selectUser);
+  const [activeLink, setActiveLink] = useState(0);
 
   return user ? (
     <Fragment>

@@ -10,6 +10,7 @@ const UserSchema = new Schema(
       unique: true,
     },
     thumbnail: { type: String, default: "" },
+    invites: [{ type: Schema.Types.ObjectId, ref: "Group", default: [] }],
   },
   { timestamps: true }
 );

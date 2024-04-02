@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 import Group from "../models/chat.js";
 import Message from "../models/message.js";
+import User from "../models/user.js";
 import AppError from "../utils/AppError.js";
 import { io, getSocketId } from "../socket/socket.js";
 
@@ -11,11 +12,13 @@ export const createChat = async (req, res) => {
   if (receiverId === null) {
     newChat = new Group({
       name: name,
+      creator: senderId,
       participants: [senderId],
     });
   } else {
     newChat = new Group({
       name: name,
+      creator: senderId,
       participants: [senderId, receiverId],
     });
   }
@@ -48,6 +51,20 @@ export const deleteChat = async (req, res) => {
     _id: chatId,
     message: "Chat removed successfully",
   });
+};
+
+export const inviteChat = async (req, res) => {
+  const { chatId, receiverEmail } = req.body;
+
+  const receiver = await User.findOne({ email: receiverEmail });
+
+  if (!receiver)
+    throw new AppError(`No product with id ${receiverEmail} found`, 404);
+
+  receiver.invites.push(chatId);
+  await receiver.save();
+
+  res.status(200).json({ done: true });
 };
 
 export const addMessage = async (req, res) => {

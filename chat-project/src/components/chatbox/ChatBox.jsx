@@ -3,6 +3,7 @@ import { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectIsMenuOpen } from "../../store/navbar/navbar-selector";
 import { setIsMenuOpen } from "../../store/navbar/navbar-actions";
+import { setIsModalOpen } from "../../store/modal/modal-actions";
 import {
   getMessages,
   sendMessage,
@@ -54,6 +55,10 @@ const ChatBox = () => {
     setNewMessage("");
   };
 
+  const openModal = () => {
+    dispatch(setIsModalOpen(true, "invite"));
+  };
+
   useEffect(() => {
     if (currentChat !== null) dispatch(getMessages(currentChat));
   }, [dispatch, currentChat]);
@@ -82,14 +87,23 @@ const ChatBox = () => {
     >
       <div className="message-box">
         <div className="message-header">
-          <div className="message-title">
-            <ArrowBackIcon
-              className="chatnav-toggler"
-              onClick={toggleIsMenuOpen}
-            />
-            <h4>{chat?.name}</h4>
-          </div>
+          <div className="message-title-container">
+            <div className="message-title">
+              <ArrowBackIcon
+                className="chatnav-toggler"
+                onClick={toggleIsMenuOpen}
+              />
+              <h4>{chat?.name}</h4>
+            </div>
 
+            {chat.creator === user._id ? (
+              <div className="invite-btn" onClick={openModal}>
+                +
+              </div>
+            ) : (
+              ""
+            )}
+          </div>
           <hr />
         </div>
         <div className="message-body">

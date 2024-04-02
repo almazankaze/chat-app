@@ -17,10 +17,29 @@
   flex-direction: column;
 }
 
+.invite-btn {
+  width: 32px;
+  height: 32px;
+  background-color: var(--link-text);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
 .message-header > hr {
-  width: 95%;
+  width: 100%;
   border: 0.1px solid #fff;
   margin-top: 20px;
+}
+
+.message-title-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .message-title {
@@ -116,6 +135,11 @@
     transform: translateX(30%);
   }
 
+  .invite-btn {
+    width: 24px;
+    height: 24px;
+  }
+
   .message-box {
     border-radius: 0;
     grid-template-rows: 7vh 70vh 8vh;
@@ -148,12 +172,7 @@
     transform: translateX(60%);
   }
 
-  .message-header {
-    padding: 0 1rem 0rem 1rem;
-  }
-
   .message-header > hr {
-    width: 95%;
     border: 0.1px solid #fff;
     margin-top: 10px;
   }

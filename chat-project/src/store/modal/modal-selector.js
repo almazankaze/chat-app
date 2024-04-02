@@ -6,3 +6,8 @@ export const selectIsModalOpen = createSelector(
   [selectModalReducer],
   (modalSlice) => modalSlice.isModalOpen
 );
+
+export const selectModalType = createSelector(
+  [selectModalReducer],
+  (modalSlice) => modalSlice.modalType
+);

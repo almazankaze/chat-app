@@ -19,7 +19,7 @@ const SideNav = () => {
   };
 
   const openModal = () => {
-    dispatch(setIsModalOpen(true));
+    dispatch(setIsModalOpen(true, "create"));
   };
 
   return (

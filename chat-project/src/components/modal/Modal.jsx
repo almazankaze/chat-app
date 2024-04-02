@@ -2,7 +2,10 @@ import { useState } from "react";
 import { setIsModalOpen } from "../../store/modal/modal-actions";
 import { useDispatch, useSelector } from "react-redux";
 
-import { selectIsModalOpen } from "../../store/modal/modal-selector.js";
+import {
+  selectIsModalOpen,
+  selectModalType,
+} from "../../store/modal/modal-selector.js";
 import { selectChatModalLoading } from "../../store/chat/chat-selector.js";
 import { selectUser } from "../../store/user/user-selector";
 import { createNewChat } from "../../store/chat/chat-actions.js";
@@ -38,6 +41,7 @@ const Modal = ({ children, modalType, ...otherProps }) => {
   const dispatch = useDispatch();
 
   const isOpen = useSelector(selectIsModalOpen);
+  const myModalType = useSelector(selectModalType);
   const user = useSelector(selectUser);
   const modalLoading = useSelector(selectChatModalLoading);
 
@@ -86,45 +90,90 @@ const Modal = ({ children, modalType, ...otherProps }) => {
           <ModalSpinner />
         ) : (
           <ModalContent>
-            <h3>Create new Group</h3>
-            <div className="modal-inputs">
-              <div className="modal-input-container">
-                <label>Room Name</label>
-                <input
-                  type="text"
-                  name="roomName"
-                  onChange={handleChange}
-                  value={roomName}
-                  required
-                  className="modal-input"
-                />
-              </div>
-            </div>
-            <span
-              className={
-                showError ? "modal-error show-modal-error" : "modal-error"
-              }
-            >
-              Something went wrong
-            </span>
-            <ModalButtons>
-              <Button
-                type="button"
-                buttonType={BUTTON_TYPE_CLASSES.heroBtn}
-                className="m-medium"
-                onClick={createChat}
-              >
-                Create
-              </Button>
-              <Button
-                type="button"
-                className="m-medium"
-                buttonType={BUTTON_TYPE_CLASSES.danger}
-                onClick={closeModal}
-              >
-                Cancel
-              </Button>
-            </ModalButtons>
+            {myModalType === "create" ? (
+              <>
+                <h3>Create new Group</h3>
+                <div className="modal-inputs">
+                  <div className="modal-input-container">
+                    <label>Room Name</label>
+                    <input
+                      type="text"
+                      name="roomName"
+                      onChange={handleChange}
+                      value={roomName}
+                      required
+                      className="modal-input"
+                    />
+                  </div>
+                </div>
+                <span
+                  className={
+                    showError ? "modal-error show-modal-error" : "modal-error"
+                  }
+                >
+                  Something went wrong
+                </span>
+                <ModalButtons>
+                  <Button
+                    type="button"
+                    buttonType={BUTTON_TYPE_CLASSES.heroBtn}
+                    className="m-medium"
+                    onClick={createChat}
+                  >
+                    Create
+                  </Button>
+                  <Button
+                    type="button"
+                    className="m-medium"
+                    buttonType={BUTTON_TYPE_CLASSES.danger}
+                    onClick={closeModal}
+                  >
+                    Cancel
+                  </Button>
+                </ModalButtons>
+              </>
+            ) : (
+              <>
+                <h3>Invite Member</h3>
+                <div className="modal-inputs">
+                  <div className="modal-input-container">
+                    <label>Email</label>
+                    <input
+                      type="text"
+                      name="friendName"
+                      onChange={handleChange}
+                      value={friendName}
+                      required
+                      className="modal-input"
+                    />
+                  </div>
+                </div>
+                <span
+                  className={
+                    showError ? "modal-error show-modal-error" : "modal-error"
+                  }
+                >
+                  Something went wrong
+                </span>
+                <ModalButtons>
+                  <Button
+                    type="button"
+                    buttonType={BUTTON_TYPE_CLASSES.heroBtn}
+                    className="m-medium"
+                  >
+                    Invite
+                  </Button>
+                  <Button
+                    type="button"
+                    className="m-medium"
+                    buttonType={BUTTON_TYPE_CLASSES.danger}
+                    onClick={closeModal}
+                  >
+                    Cancel
+                  </Button>
+                </ModalButtons>
+              </>
+            )}
           </ModalContent>
         )}
       </CustomModal>
