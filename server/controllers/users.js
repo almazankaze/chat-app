@@ -15,6 +15,7 @@ export const register = async (req, res) => {
         _id: req.user._id,
         username: req.user.username,
         thumbnail: req.user.thumbnail,
+        invites: req.user.invites,
       };
       res.status(200).json(userData);
     });
@@ -28,6 +29,7 @@ export const login = async (req, res) => {
     _id: req.user._id,
     username: req.user.username,
     thumbnail: req.user.thumbnail,
+    invites: req.user.invites,
   };
   res.status(200).json(userData);
 };
@@ -38,6 +40,7 @@ export const getUser = async (req, res, next) => {
       _id: req.user._id,
       username: req.user.username,
       thumbnail: req.user.thumbnail,
+      invites: req.user.invites,
     };
     res.status(200).json(userData);
   } else {
@@ -53,4 +56,25 @@ export const logout = async (req, res, next) => {
 
     res.status(200).json({ done: true });
   });
+};
+
+export const deleteInvite = async (req, res, next) => {
+  const { chatId } = req.body;
+
+  const user = await User.findById(req.user._id);
+
+  const newInvites = user.invites.filter((invite) => !invite.equals(chatId));
+
+  user.invites = newInvites;
+
+  user.save();
+
+  const userData = {
+    _id: user._id,
+    username: user.username,
+    thumbnail: user.thumbnail,
+    invites: user.invites,
+  };
+
+  res.status(200).json(userData);
 };

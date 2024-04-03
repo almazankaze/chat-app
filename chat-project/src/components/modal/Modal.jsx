@@ -6,9 +6,16 @@ import {
   selectIsModalOpen,
   selectModalType,
 } from "../../store/modal/modal-selector.js";
-import { selectChatModalLoading } from "../../store/chat/chat-selector.js";
-import { selectUser } from "../../store/user/user-selector";
+import {
+  selectChatModalLoading,
+  selectCurrentChat,
+} from "../../store/chat/chat-selector.js";
+import {
+  selectUser,
+  selectInviteLoading,
+} from "../../store/user/user-selector";
 import { createNewChat } from "../../store/chat/chat-actions.js";
+import { inviteUser } from "../../store/user/user-actions.js";
 
 import Button, { BUTTON_TYPE_CLASSES } from "../button/Button";
 
@@ -42,6 +49,8 @@ const Modal = ({ children, modalType, ...otherProps }) => {
 
   const isOpen = useSelector(selectIsModalOpen);
   const myModalType = useSelector(selectModalType);
+  const currentChat = useSelector(selectCurrentChat);
+  const inviteLoading = useSelector(selectInviteLoading);
   const user = useSelector(selectUser);
   const modalLoading = useSelector(selectChatModalLoading);
 
@@ -83,10 +92,27 @@ const Modal = ({ children, modalType, ...otherProps }) => {
     }
   };
 
+  const handleInvite = () => {
+    if (friendName) {
+      const data = {
+        chatId: currentChat,
+        receiverEmail: friendName,
+      };
+
+      dispatch(inviteUser(data)).then((resp) => {
+        if (resp === 200) {
+          closeModal(inviteUser());
+        } else {
+          setShowError(true);
+        }
+      });
+    }
+  };
+
   return (
     <ModalContainer className={isOpen ? "show-modal" : ""}>
       <CustomModal disabled={modalLoading} {...otherProps}>
-        {modalLoading ? (
+        {modalLoading || inviteLoading ? (
           <ModalSpinner />
         ) : (
           <ModalContent>
@@ -160,6 +186,7 @@ const Modal = ({ children, modalType, ...otherProps }) => {
                     type="button"
                     buttonType={BUTTON_TYPE_CLASSES.heroBtn}
                     className="m-medium"
+                    onClick={handleInvite}
                   >
                     Invite
                   </Button>

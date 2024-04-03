@@ -24,6 +24,18 @@ export const userFailure = (error) =>
 export const connectToSocket = (socket) =>
   createAction(USER_ACTION_TYPES.ESTABLISH_SOCKET_CONNECTION, socket);
 
+export const inviteStart = () => {
+  return { type: USER_ACTION_TYPES.USER_INVITE_START };
+};
+
+export const inviteSuccess = () => {
+  return { type: USER_ACTION_TYPES.USER_INVITE_SUCCESS };
+};
+
+export const inviteFail = () => {
+  return { type: USER_ACTION_TYPES.USER_INVITE_FAIL };
+};
+
 export const signIn = (userData) => {
   return async (dispatch) => {
     dispatch(fetchUserStart());
@@ -117,6 +129,21 @@ export const establishConnection = (chatId, socket) => {
       dispatch(connectToSocket(newSocket));
     } catch (e) {
       dispatch(connectToSocket(null));
+    }
+  };
+};
+
+export const inviteUser = (info, token) => {
+  return async (dispatch) => {
+    dispatch(inviteStart());
+    try {
+      await api.inviteUser(info, token);
+      dispatch(inviteSuccess());
+      return 200;
+    } catch (e) {
+      dispatch(inviteFail(e));
+      if (e?.response?.status) return e.response.status;
+      else return 404;
     }
   };
 };

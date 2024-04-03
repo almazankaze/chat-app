@@ -2,10 +2,16 @@ import express from "express";
 import passport from "passport";
 import dotenv from "dotenv";
 
-import { register, login, getUser, logout } from "../controllers/users.js";
+import {
+  register,
+  login,
+  getUser,
+  logout,
+  deleteInvite,
+} from "../controllers/users.js";
 
 import catchAsync from "../utils/catchAsync.js";
-import { validateUserInfo } from "../middlewares/users.js";
+import { isLoggedIn, validateUserInfo } from "../middlewares/users.js";
 
 if (process.env.NODE_ENV !== "production") {
   dotenv.config();
@@ -26,5 +32,7 @@ userRouter.post(
 userRouter.get("/getUser", catchAsync(getUser));
 
 userRouter.get("/logout", catchAsync(logout));
+
+userRouter.post("/removeInvite", isLoggedIn, catchAsync(deleteInvite));
 
 export default userRouter;

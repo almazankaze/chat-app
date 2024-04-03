@@ -13,6 +13,11 @@ export const getUser = () =>
   API.get("/users/getUser", { withCredentials: true });
 export const logout = () => API.get("/users/logout", { withCredentials: true });
 
+export const inviteUser = (data) =>
+  API.post("chat/invite", data, {
+    withCredentials: true,
+  });
+
 //chat
 export const createChat = (data) =>
   API.post("/chat/", data, {

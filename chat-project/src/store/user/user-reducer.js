@@ -4,6 +4,7 @@ const USER_INITIAL_DATA = {
   user: null,
   socket: null,
   isLoading: false,
+  inviteLoading: false,
   error: null,
 };
 
@@ -41,6 +42,7 @@ export const userReducer = (state = USER_INITIAL_DATA, action = {}) => {
         user: null,
         socket: null,
         isLoading: false,
+        inviteLoading: false,
         error: null,
       };
 
@@ -58,6 +60,26 @@ export const userReducer = (state = USER_INITIAL_DATA, action = {}) => {
         socket: payload,
         isLoading: false,
         error: null,
+      };
+
+    case USER_ACTION_TYPES.USER_INVITE_START:
+      return {
+        ...state,
+        inviteLoading: true,
+        error: null,
+      };
+    case USER_ACTION_TYPES.USER_INVITE_SUCCESS:
+      return {
+        ...state,
+        inviteLoading: false,
+        error: null,
+      };
+
+    case USER_ACTION_TYPES.USER_INVITE_FAIL:
+      return {
+        ...state,
+        inviteLoading: false,
+        error: payload,
       };
     default:
       return state;
