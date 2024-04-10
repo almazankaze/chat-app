@@ -69,12 +69,5 @@ export const deleteInvite = async (req, res, next) => {
 
   user.save();
 
-  const userData = {
-    _id: user._id,
-    username: user.username,
-    thumbnail: user.thumbnail,
-    invites: user.invites,
-  };
-
-  res.status(200).json(userData);
+  res.status(200).json({ done: true });
 };

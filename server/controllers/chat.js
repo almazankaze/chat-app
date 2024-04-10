@@ -61,8 +61,44 @@ export const inviteChat = async (req, res) => {
   if (!receiver)
     throw new AppError(`No product with id ${receiverEmail} found`, 404);
 
-  receiver.invites.push(chatId);
-  await receiver.save();
+  const hasInvite = receiver.invites.includes(chatId);
+
+  if (!hasInvite) {
+    receiver.invites.push(chatId);
+    await receiver.save();
+  }
+
+  res.status(200).json({ done: true });
+};
+
+export const acceptInvite = async (req, res, next) => {
+  const { chatId } = req.body;
+
+  const group = await Group.findById(chatId);
+
+  if (!group) throw new AppError(`No product with id ${chatId} found`, 404);
+
+  const isInGroup = group.participants.includes(req.user._id);
+
+  if (!isInGroup) {
+    group.participants.push(req.user._id);
+    await group.save();
+  }
+
+  res.status(200).json({ done: true });
+};
+
+export const removeFromChat = async (req, res, next) => {
+  const { userId, chatId } = req.body;
+
+  const group = await Group.findById(chatId);
+
+  if (!group) throw new AppError(`No product with id ${chatId} found`, 404);
+
+  const newPart = group.participants.filter((user) => !user.equals(userId));
+
+  group.participants = newPart;
+  group.save();
 
   res.status(200).json({ done: true });
 };

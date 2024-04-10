@@ -8,6 +8,7 @@ import {
   addMessage,
   getMessages,
   inviteChat,
+  acceptInvite,
 } from "../controllers/chat.js";
 import { isLoggedIn } from "../middlewares/users.js";
 import { canInvite } from "../middlewares/messages.js";
@@ -25,6 +26,7 @@ chatRouter.post(
   catchAsync(canInvite),
   catchAsync(inviteChat)
 );
+chatRouter.post("/acceptInvite", isLoggedIn, catchAsync(acceptInvite));
 
 chatRouter.post("/messages/addMessage", isLoggedIn, catchAsync(addMessage));
 chatRouter.get("/messages/:chatId", isLoggedIn, catchAsync(getMessages));

@@ -75,6 +75,17 @@ export const userReducer = (state = USER_INITIAL_DATA, action = {}) => {
         error: null,
       };
 
+    case USER_ACTION_TYPES.USER_DELETE_INVITE_SUCCESS:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          invites: state.user.invites.filter((invite) => invite !== payload),
+        },
+        inviteLoading: false,
+        error: null,
+      };
+
     case USER_ACTION_TYPES.USER_INVITE_FAIL:
       return {
         ...state,

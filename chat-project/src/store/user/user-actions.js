@@ -24,6 +24,9 @@ export const userFailure = (error) =>
 export const connectToSocket = (socket) =>
   createAction(USER_ACTION_TYPES.ESTABLISH_SOCKET_CONNECTION, socket);
 
+export const inviteRemoveSuccess = (invite) =>
+  createAction(USER_ACTION_TYPES.USER_DELETE_INVITE_SUCCESS, invite);
+
 export const inviteStart = () => {
   return { type: USER_ACTION_TYPES.USER_INVITE_START };
 };
@@ -32,9 +35,8 @@ export const inviteSuccess = () => {
   return { type: USER_ACTION_TYPES.USER_INVITE_SUCCESS };
 };
 
-export const inviteFail = () => {
-  return { type: USER_ACTION_TYPES.USER_INVITE_FAIL };
-};
+export const inviteFail = (error) =>
+  createAction(USER_ACTION_TYPES.USER_INVITE_FAIL, error);
 
 export const signIn = (userData) => {
   return async (dispatch) => {
@@ -144,6 +146,21 @@ export const inviteUser = (info, token) => {
       dispatch(inviteFail(e));
       if (e?.response?.status) return e.response.status;
       else return 404;
+    }
+  };
+};
+
+export const deleteInvite = (info, token) => {
+  return async (dispatch) => {
+    dispatch(inviteStart());
+    try {
+      await api.removeInvite(info, token);
+      dispatch(inviteRemoveSuccess(info.chatId));
+      return 200;
+    } catch (e) {
+      dispatch(inviteFail(e));
+      if (e?.response?.status) return e.response.status;
+      else return 500;
     }
   };
 };
