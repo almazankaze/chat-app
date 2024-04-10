@@ -164,3 +164,18 @@ export const deleteInvite = (info, token) => {
     }
   };
 };
+
+export const acceptInvite = (info, token) => {
+  return async (dispatch) => {
+    dispatch(inviteStart());
+    try {
+      await api.inviteAccept(info, token);
+      dispatch(inviteSuccess());
+      return 200;
+    } catch (e) {
+      dispatch(inviteFail(e));
+      if (e?.response?.status) return e.response.status;
+      else return 500;
+    }
+  };
+};

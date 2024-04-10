@@ -18,6 +18,11 @@ export const inviteUser = (data) =>
     withCredentials: true,
   });
 
+export const inviteAccept = (data) =>
+  API.post("chat/acceptInvite", data, {
+    withCredentials: true,
+  });
+
 export const removeInvite = (data) =>
   API.post("users/removeInvite", data, {
     withCredentials: true,

@@ -3,7 +3,7 @@ import {
   selectUser,
   selectInviteLoading,
 } from "../../../store/user/user-selector";
-import { deleteInvite } from "../../../store/user/user-actions";
+import { deleteInvite, acceptInvite } from "../../../store/user/user-actions";
 import Button, { BUTTON_TYPE_CLASSES } from "../../../components/button/Button";
 import "./notices.scss";
 
@@ -12,7 +12,14 @@ const Notices = () => {
   const user = useSelector(selectUser);
   const loading = useSelector(selectInviteLoading);
 
-  const handleAccept = () => {};
+  const handleAccept = (invite) => {
+    const data = {
+      chatId: invite,
+    };
+    dispatch(acceptInvite(data)).then((resp) => {
+      if (resp === 200) dispatch(deleteInvite(data));
+    });
+  };
 
   const handleDelete = (invite) => {
     const data = {
@@ -30,12 +37,18 @@ const Notices = () => {
             <div key={invite} className="invite">
               <h4>Accept invitation to join chat name?</h4>
               <div className="notice-btns">
-                <Button type="button" buttonType={BUTTON_TYPE_CLASSES.heroBtn}>
+                <Button
+                  type="button"
+                  buttonType={BUTTON_TYPE_CLASSES.heroBtn}
+                  isLoading={loading}
+                  onClick={() => handleAccept(invite)}
+                >
                   Accept
                 </Button>
                 <Button
                   type="button"
                   buttonType={BUTTON_TYPE_CLASSES.danger}
+                  isLoading={loading}
                   onClick={() => handleDelete(invite)}
                 >
                   Decline
